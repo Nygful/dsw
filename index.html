@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
+ <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#a7c0ee">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Дія</title>
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -25,20 +28,70 @@
             min-height: 100vh;
         }
 
-        .app-container {
-            width: 100%;
-            max-width: 414px;
-            height: 100vh;
-            /* Оригінальний градієнт Дії */
-            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 35%, #e1c4fd 70%, #fbc2eb 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            overflow: hidden;
-            position: relative;
-        }
+       .app-container {
+    width: 100%;
+    max-width: 414px;
+    height: 100vh;
+    background-color: #a7c0ee; /* Базовий блакитний колір */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
 
+/* Шари анімованого «живого» фону */
+.app-container::before,
+.app-container::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px); /* Розмиття для м'якого ефекту */
+    opacity: 0.85;
+    z-index: -1;
+    will-change: transform;
+}
+
+/* Жовта пляма внизу праворуч */
+.app-container::before {
+    width: 320px;
+    height: 320px;
+    background: #ffff66;
+    bottom: -60px;
+    right: -60px;
+    animation: moveYellow 9s ease-in-out infinite alternate;
+}
+
+/* Ніжно-зелена пляма по центру/зліва */
+.app-container::after {
+    width: 380px;
+    height: 380px;
+    background: #bcebc0;
+    bottom: 20%;
+    left: -80px;
+    animation: moveGreen 11s ease-in-out infinite alternate;
+}
+
+/* Ключові кадри анімації руху */
+@keyframes moveYellow {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    100% {
+        transform: translate(-50px, -60px) scale(1.2);
+    }
+}
+
+@keyframes moveGreen {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    100% {
+        transform: translate(60px, -40px) scale(1.15);
+    }
+}
         .mainSwiper {
             width: 100%;
             height: calc(100vh - 75px);
@@ -318,13 +371,15 @@
         }
 
         .card-title-main {
-            font-size: 21px;
-            font-weight: 800;
-            color: #000000;
-            line-height: 1.2;
-            margin-bottom: 20px;
-        }
-
+    font-family: "e-Ukraine", -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+    font-size: 20px;
+    font-weight: 700;           /* В оригіналі шрифт Bold, але не надто жирний */
+    color: #000000;
+    line-height: 1.15;          /* Щільний міжрядковий інтервал */
+    letter-spacing: -0.4px;     /* Трохи зближує букви між собою */
+    margin-bottom: 18px;
+    -webkit-font-smoothing: antialiased; /* Згладжування шрифту для iOS */
+}
         .card-top {
             display: flex;
             gap: 16px;
@@ -338,18 +393,23 @@
             background-color: #eee;
         }
 
-        .signature-photo {
-            height: 70px;
-            max-width: 200px;
-            object-fit: contain;
-            display: block;
-            margin-top: 2px;
-        }
-
+      .signature-photo {
+    width: 90px;             /* Регулює ширину підпису (підберіть 75px - 90px) */
+    height: auto;            /* Висота підлаштовується пропорційно */
+    max-height: 70px;        /* Обмеження максимальної висоти */
+    object-fit: contain;
+    display: block;
+    margin-top: -8px;        /* Піднімає підпис вище або нижче (від’ємне значення піднімає) */
+    margin-left: -5px;       /* Зсув ліворуч/праворуч за потреби */
+    filter: contrast(140%);  /* Робить підпис чіткішим і темнішим */
+}
         .info-group {
             display: flex;
             flex-direction: column;
+            gap: 12px;
             justify-content: space-around;
+            align-items: flex-start; /* Піднімає текст та фото до самого верху */
+    margin-top: -6px
         }
 
         .label {
@@ -531,6 +591,7 @@
             justify-content: center;
             width: 100%;
         }
+        
     </style>
 </head>
 <body>
@@ -813,7 +874,7 @@
                                     <div class="card-flip-container" onclick="flipCard(this)">
                                         <div class="card-face card-front">
                                             <div>
-                                                <div class="card-title-main">єDocument</div>
+                                                <div class="card-title-main">єДокумент</div>
                                                 <div class="card-top" style="align-items: center;">
                                                     <img src="gag/photo_2026-08-24_16-51-57.jpg" alt="Фото" class="photo">
                                                     <div class="info-group">
@@ -827,7 +888,7 @@
                                                         </div>
                                                         <div>
                                                             <div class="label"></div>
-                                                            <img src="gag/sticker.webp" alt="Підпис" class="signature-photo">
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
